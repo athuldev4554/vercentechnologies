@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), sans-serif;
+  --font-heading: var(--font-manrope), sans-serif;
+  --color-primary: #155e59;
+  --color-ink: #202d2b;
+  --color-muted: #5d6c68;
+  --color-line: #dce3df;
+}
+
+@theme {
+  --breakpoint-sm: 541px;
+  --breakpoint-md: 801px;
+  --breakpoint-lg: 1101px;
+}
