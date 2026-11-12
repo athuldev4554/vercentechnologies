@@ -14,3 +14,172 @@
   --breakpoint-md: 801px;
   --breakpoint-lg: 1101px;
 }
+
+.expertise-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+  aspect-ratio: 1000 / 820;
+}
+
+.expertise-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: #26945c;
+}
+
+.expertise-connectors {
+  stroke-dasharray: 8 9;
+  animation: expertise-flow 1.2s linear infinite;
+}
+
+@keyframes expertise-flow {
+  to {
+    stroke-dashoffset: -34;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expertise-connectors {
+    animation: none;
+  }
+}
+
+.expertise-card {
+  position: absolute;
+  display: flex;
+  width: 30%;
+  aspect-ratio: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 24px);
+  padding: 12px;
+  border: 1px solid #dce3df;
+  border-radius: 50%;
+}
+
+.expertise-odoo {
+  top: 0;
+  left: 0;
+  background: #f3eaf1;
+}
+.expertise-netsuite {
+  top: 0;
+  right: 0;
+  background: #e4edf0;
+}
+.expertise-web {
+  bottom: 0;
+  left: 0;
+  background: #164b46;
+  color: white;
+}
+.expertise-cloud {
+  bottom: 0;
+  right: 0;
+  background: #e5eee1;
+}
+.expertise-ai {
+  top: 0;
+  left: 35%;
+  background: #edf2e9;
+}
+
+.expertise-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1vw, 12px);
+  max-width: 100%;
+}
+
+.expertise-icons img,
+.expertise-icons svg {
+  width: auto;
+  height: clamp(22px, 3vw, 36px);
+  max-width: 100%;
+  object-fit: contain;
+}
+.expertise-ai .expertise-icons {
+  width: 100%;
+  gap: 6%;
+}
+.expertise-ai .expertise-icons > * {
+  width: 20.5%;
+  max-width: 36px;
+  height: auto;
+  aspect-ratio: 1;
+}
+.expertise-netsuite img {
+  width: 132px;
+  height: clamp(22px, 3vw, 34px);
+  object-fit: cover;
+}
+.expertise-web .expertise-icons {
+  padding: 10px;
+  border-radius: 6px;
+  background: white;
+}
+.expertise-card h2 {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+
+.expertise-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 30%;
+  height: 12%;
+  padding: 12px;
+  border: 1px solid #dce3df;
+  border-radius: 50px;
+  background: white;
+  box-shadow: 0 8px 24px #143c3210;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 540px) {
+  .expertise-card {
+    gap: 6px;
+    padding: 8px;
+  }
+  .expertise-card h2 {
+    max-width: 100%;
+    font-size: clamp(10px, 3vw, 16px);
+    line-height: 1.25;
+  }
+  .expertise-web .expertise-icons {
+    padding: 6px;
+  }
+  .expertise-web .expertise-icons img,
+  .expertise-cloud .expertise-icons img {
+    width: clamp(16px, 4.5vw, 22px);
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .expertise-netsuite img {
+    height: auto;
+    object-fit: contain;
+  }
+  .expertise-center {
+    padding: 2px 6px;
+    font-size: clamp(16px, 5vw, 22px);
+  }
+}

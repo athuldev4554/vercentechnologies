@@ -42,40 +42,38 @@ const serviceLogos: Record<string, string[][]> = {
     ["Microsoft Azure", "azure"],
     ["Google Cloud", "google-cloud"],
   ],
+  ai: [
+    ["GPT (OpenAI)", "gpt"],
+    ["Claude", "claude"],
+    ["LangGraph", "langgraph"],
+    ["Ollama", "ollama"],
+  ],
   odoo: [["Odoo", "odoo-logo.png"]],
   netsuite: [["NetSuite", "netsuite-logo.png"]],
   custom: developmentLogos,
 };
 
-const heroImageColumns = [
-  [
-    {
-      src: "/images/hero-odoo-v2.png",
-      alt: "Odoo business applications platform",
-      width: 1459,
-      height: 1253,
-    },
-    {
-      src: "/images/hero-web-app-v2.png",
-      alt: "Astera Commerce shopping web application with an AI shopping assistant",
-      width: 1672,
-      height: 941,
-    },
-  ],
-  [
-    {
-      src: "/images/hero-netsuite-v2.png",
-      alt: "NetSuite ERP and accounting platform",
-      width: 1613,
-      height: 1188,
-    },
-    {
-      src: "/images/hero-mobile-app-v2.png",
-      alt: "Flutter development workspace with the Astera Shop mobile application in an Android emulator",
-      width: 1672,
-      height: 941,
-    },
-  ],
+const heroExpertise = [
+  { name: "", theme: "odoo", icons: serviceLogos.odoo },
+  { name: "", theme: "netsuite", icons: serviceLogos.netsuite },
+  {
+    name: "Web development",
+    theme: "web",
+    icons: [
+      ["Next.js", "nextjs"],
+      ["Node.js", "nodejs"],
+    ],
+  },
+  { name: "Cloud Integrations", theme: "cloud", icons: serviceLogos.cloud },
+  {
+    name: "AI Integrations",
+    theme: "ai",
+    icons: [
+      ["GPT (OpenAI)", "gpt"],
+      ["Claude", "claude"],
+      ["LangChain", "langchain"],
+    ],
+  },
 ];
 
 function Arrow() {
@@ -230,34 +228,107 @@ export default function Home() {
             </div>
 
             <figure
-              className="w-full min-w-0 lg:flex-[1.5_1_0%]"
-              aria-label="Odoo, NetSuite, web, and mobile application examples"
+              className="w-full min-w-0 lg:flex-[1.5_1_0%] lg:self-center"
+              aria-label="Vercent expertise in Odoo, NetSuite, web development, cloud, and AI integration"
             >
-              <div className="flex items-start">
-                {heroImageColumns.map((column) => (
-                  <div
-                    className="relative flex w-[52.6316%] shrink-0 flex-col gap-5 first:z-0 first:mt-4 last:z-10 last:-ml-[5.2632%] sm:gap-6 sm:first:mt-6"
-                    key={column[0].src}
+              <div className="expertise-diagram">
+                <svg
+                  className="expertise-arrows"
+                  viewBox="0 0 1000 820"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <marker
+                      id="expertise-arrow"
+                      viewBox="0 0 10 10"
+                      refX="8"
+                      refY="5"
+                      markerWidth="7"
+                      markerHeight="7"
+                      orient="auto-start-reverse"
+                    >
+                      <path
+                        d="m2 1 6 4-6 4"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeDasharray="none"
+                      />
+                    </marker>
+                  </defs>
+                  <g
+                    className="expertise-connectors"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    markerEnd="url(#expertise-arrow)"
                   >
-                    {column.map((image) => (
-                      <div
-                        className="min-w-0 overflow-hidden rounded-md border border-[#dce3df] bg-white shadow-[0_12px_32px_rgba(20,47,45,.12)]"
-                        key={image.src}
-                      >
+                    <path
+                      d="M500 380 H150 V310"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path
+                      d="M500 380 H850 V310"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path
+                      d="M500 440 H150 V510"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path
+                      d="M500 440 H850 V510"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <path d="M500 410 V310" vectorEffect="non-scaling-stroke" />
+                  </g>
+                </svg>
+                {heroExpertise.map((expertise) => (
+                  <div
+                    className={`expertise-card expertise-${expertise.theme}`}
+                    key={expertise.theme}
+                  >
+                    <div className="expertise-icons">
+                      {expertise.theme === "ai" && (
+                        <svg
+                          width="36"
+                          height="36"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <rect x="5" y="5" width="14" height="14" rx="2" />
+                          <rect x="9" y="9" width="6" height="6" rx="1" />
+                          <path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3" />
+                        </svg>
+                      )}
+                      {expertise.icons.map(([name, file]) => (
                         <Image
-                          {...image}
-                          sizes="(max-width: 1100px) 56vw, (max-width: 1800px) 35vw, 620px"
-                          preload
-                          className="h-auto w-full"
+                          key={file}
+                          src={`/images/${file}${file.endsWith(".png") ? "" : ".svg"}`}
+                          alt={name}
+                          width={
+                            expertise.theme === "odoo"
+                              ? 95
+                              : expertise.theme === "netsuite"
+                                ? 132
+                                : 36
+                          }
+                          height={expertise.theme === "netsuite" ? 34 : 36}
                         />
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    {expertise?.name && <h2>{expertise.name}</h2>}
                   </div>
                 ))}
+                <div className="expertise-center">Vercent</div>
               </div>
-              <figcaption className="mt-5 text-[11px] text-muted">
-                Connected by design. Supported for the long term.
-              </figcaption>
             </figure>
           </div>
         </section>
@@ -285,6 +356,62 @@ export default function Home() {
             </div>
           ))}
         </div>
+
+        <section
+          className="bg-[#123e3a] py-16 text-white md:py-24"
+          aria-labelledby="ai-intro-heading"
+        >
+          <div className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-10 px-5 sm:px-8 md:px-12 lg:flex-row lg:gap-20 lg:px-[72px]">
+            <div className="min-w-0 flex-1">
+              <span className="mb-6 block text-[11px] font-semibold tracking-[.18em] text-[#b4d2c1] uppercase">
+                AI with purpose
+              </span>
+              <h2
+                id="ai-intro-heading"
+                className="font-heading text-[clamp(38px,4.4vw,64px)] leading-[1.12] font-normal tracking-[-.045em]"
+              >
+                Built on AI.
+                <span className="block text-[#b4d2c1]">
+                  Designed for impact.
+                </span>
+              </h2>
+              <ul
+                className="mt-8 flex flex-wrap gap-3"
+                aria-label="AI technologies"
+              >
+                {serviceLogos.ai.map(([name, file]) => (
+                  <li
+                    className="flex size-12 items-center justify-center bg-white p-2.5"
+                    key={file}
+                  >
+                    <Image
+                      src={`/images/${file}.svg`}
+                      alt={name}
+                      title={name}
+                      width={28}
+                      height={28}
+                      className="size-7 object-contain"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="min-w-0 flex-1 lg:border-l lg:border-white/20 lg:pl-12">
+              <p className="max-w-[540px] text-[16px] leading-[1.9] text-[#d7e7e0] md:text-[18px]">
+                From AI models that learn to agents that act, Vercent technology
+                solutions reimagine the enterprise, creating an intelligent
+                foundation for an adaptive and responsible AI ecosystem with
+                lasting business impact.
+              </p>
+              <a
+                href="#contact"
+                className="mt-8 inline-flex items-center gap-5 text-sm font-medium text-white underline-offset-8 hover:underline"
+              >
+                Let’s build the future of AI together. <Arrow />
+              </a>
+            </div>
+          </div>
+        </section>
 
         <section
           id="services"
@@ -618,6 +745,34 @@ export default function Home() {
                 Connect with Vercent to discuss your next application,
                 integration, or cloud initiative.
               </p>
+              <a
+                href="tel:+917034833725"
+                className="mt-8 inline-flex min-h-12 items-center gap-4 text-primary underline-offset-4 hover:underline"
+              >
+                <span
+                  className="flex size-12 shrink-0 items-center justify-center border border-line"
+                  aria-hidden="true"
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />
+                  </svg>
+                </span>
+                <span className="flex flex-col gap-1">
+                  <span className="text-[11px] font-medium tracking-[.12em] text-muted uppercase">
+                    Call us
+                  </span>
+                  <span className="font-heading text-xl">+91 70348 33725</span>
+                </span>
+              </a>
             </div>
             <div className="border-t border-primary pt-7">
               <h3 className="font-heading font-normal tracking-[-.035em] mb-3 text-[25px]">
